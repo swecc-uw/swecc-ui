@@ -1,0 +1,19 @@
+{
+  "name": "swecc-ui-consumer-fixture",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@stylexjs/stylex": "^0.19.1",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router": "^8.4.0"
+  },
+  "devDependencies": {
+    "@stylexjs/unplugin": "^0.19.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "typescript": "~5.9.3",
+    "vite": "^8.3.2"
+  }
+}
