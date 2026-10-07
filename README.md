@@ -225,11 +225,15 @@ npm install ../swecc-ui/swecc-ui-0.1.0.tgz
 
 ## Release a version
 
-1. Run `npm version patch` (or `minor`) on `main`. The command updates
-   `package.json` and creates a `v*` tag.
-2. Run `git push --follow-tags`.
+1. On a branch, run `npm version patch --no-git-tag-version` (or `minor`). The
+   command updates the version in `package.json` and `package-lock.json`.
+2. Open a pull request with that change and merge it.
 
-The `publish` job in `.github/workflows/ci.yml` runs on the tag. The job
-publishes to npm through trusted publishing, so no npm token is involved. npm
+The `publish` job in `.github/workflows/ci.yml` runs on every merge to `main`.
+If npm does not have the version in `package.json` yet, the job publishes the
+version and pushes a matching `v*` tag. A merge that does not change the
+version publishes nothing.
+
+The job publishes through trusted publishing, so no npm token is involved. npm
 trusts the workflow by its file name, so update the trusted publisher on
 npmjs.com if you rename `ci.yml`.
