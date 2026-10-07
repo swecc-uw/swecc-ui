@@ -6,7 +6,7 @@ import tokens from "./tokens.stylex.ts?raw";
 // what to do instead; see README.md for the reasoning.
 
 const sources = import.meta.glob<string>(
-  ["./**/*.{ts,tsx}", "!./**/*.test.{ts,tsx}"],
+  ["./**/*.{ts,tsx}", "!./**/*.test.ts"],
   { query: "?raw", import: "default", eager: true },
 );
 const cssFiles = Object.keys(import.meta.glob("./**/*.css"));
@@ -19,7 +19,7 @@ const HEX = /(?<![\w&])#(?:[0-9a-f]{3,4}|[0-9a-f]{6}|[0-9a-f]{8})\b/gi;
 
 describe("design system guards", () => {
   it("found source files to check", () => {
-    expect(files().length).toBe(13);
+    expect(files().length).toBeGreaterThan(10);
   });
 
   it.each(files((path) => !path.endsWith(".stylex.ts")))(

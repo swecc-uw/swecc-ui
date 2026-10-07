@@ -24,3 +24,7 @@ jobs:
             run: npm run lint
           - name: Consumer fixture
             run: npm run test:consumer
+          - name: Consumer fixture on React 18
+            run: npm run test:consumer
+            env:
+              CONSUMER_EXTRA_DEPS: react@18 react-dom@18 @types/react@18 @types/react-dom@18 react-router@7

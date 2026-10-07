@@ -16,7 +16,8 @@ npm install --save-dev @stylexjs/unplugin
 ```
 
 The library needs `react` 18 or newer and `react-router` 7 or newer. `Button`
-and `NavLink` render router links.
+and `NavLink` render router links. To pass a `ref` to `Band` or `Container`,
+use React 19. React 18 does not hand `ref` to a function component.
 
 ## Set up a Vite app
 
@@ -53,8 +54,10 @@ and `NavLink` render router links.
 4. Set `"moduleResolution": "bundler"` in `tsconfig.json`. The older `node`
    setting cannot resolve the `@swecc/ui/tokens.stylex` path.
 
-If your app renders on the server or prerenders, also bundle the library into
-the server build. Node cannot run uncompiled StyleX.
+If your app renders on the server, prerenders, or renders library components
+in Vitest, also bundle the library into the server build. Node cannot run
+uncompiled StyleX, and Vitest loads dependencies through Node unless this
+setting is present.
 
 ```ts
 export default defineConfig({
