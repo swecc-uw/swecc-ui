@@ -216,3 +216,14 @@ an app installs the library from Git.
 
 To try a change in an app before you push, run `npm pack` here and install the
 tarball in the app with `npm install ../swecc-ui/swecc-ui-0.1.0.tgz`.
+
+## Release a version
+
+1. Run `npm version patch` (or `minor`) on `main`. The command updates
+   `package.json` and creates a `v*` tag.
+2. Run `git push --follow-tags`.
+
+The `publish` job in `.github/workflows/ci.yml` runs on the tag. The job
+publishes to npm through trusted publishing, so no npm token is involved. npm
+trusts the workflow by its file name, so update the trusted publisher on
+npmjs.com if you rename `ci.yml`.
