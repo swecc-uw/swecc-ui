@@ -11,9 +11,11 @@ that you pass to a component overrides the styles of that component.
 ## Install
 
 ```bash
-npm install git+https://github.com/swecc-uw/swecc-ui.git @stylexjs/stylex
+npm install @swecc/ui @stylexjs/stylex
 npm install --save-dev @stylexjs/unplugin
 ```
+
+The package is [`@swecc/ui` on npm](https://www.npmjs.com/package/@swecc/ui).
 
 The library needs `react` 18 or newer and `react-router` 7 or newer. `Button`
 and `NavLink` render router links. To pass a `ref` to `Band` or `Container`,
@@ -211,11 +213,15 @@ app in `test/consumer`, and checks that the app type-checks, builds, and
 renders. Run it after you change `package.json` or add an export.
 
 `npm run build` compiles `src` to `dist` with `tsc`. The build leaves the
-StyleX calls in place for the app's plugin to compile. npm runs the build when
-an app installs the library from Git.
+StyleX calls in place for the app's plugin to compile. npm runs the build
+before it packs or publishes the library.
 
-To try a change in an app before you push, run `npm pack` here and install the
-tarball in the app with `npm install ../swecc-ui/swecc-ui-0.1.0.tgz`.
+To try a change in an app before you release it, run `npm pack` here and
+install the tarball in the app. `npm pack` prints the file name.
+
+```bash
+npm install ../swecc-ui/swecc-ui-0.1.0.tgz
+```
 
 ## Release a version
 
