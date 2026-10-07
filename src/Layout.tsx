@@ -1,4 +1,4 @@
-import React, { type ComponentPropsWithRef } from "react";
+import { type ComponentPropsWithRef } from "react";
 import * as stylex from "@stylexjs/stylex";
 import type { StyleXStyles } from "@stylexjs/stylex";
 import { revealMarker } from "./markers.stylex";

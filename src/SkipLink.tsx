@@ -1,4 +1,3 @@
-import React from "react";
 import * as stylex from "@stylexjs/stylex";
 import { colors, radii } from "./tokens.stylex";
 

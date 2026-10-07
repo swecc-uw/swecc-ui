@@ -1,4 +1,3 @@
-import React from "react";
 import * as stylex from "@stylexjs/stylex";
 import type { StyleXStyles } from "@stylexjs/stylex";
 import { photoMarker, revealMarker } from "./markers.stylex";

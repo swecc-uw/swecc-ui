@@ -1,7 +1,7 @@
 /*
- * The only hand-written CSS in the app. It covers what StyleX cannot express:
- * document-level defaults, element resets, and intro hooks that must apply to
- * the prerendered HTML before React hydrates. Component styles live in StyleX.
+ * The only hand-written CSS in the library. It covers what StyleX cannot
+ * express: document-level defaults and element resets. Component styles live
+ * in StyleX.
  *
  * StyleX hashes token variable names, so colors here are literals. Each must
  * equal a `colors` value in tokens.stylex.ts; guards.test.ts enforces that.
@@ -54,17 +54,4 @@ a:hover {
 
 main:focus {
   outline: none;
-}
-
-/* index.html sets data-intro before first paint; Intro.tsx clears it. */
-[data-intro="play"] #root {
-  visibility: hidden;
-}
-
-[data-intro] [data-intro-part="title"] {
-  visibility: hidden;
-}
-
-[data-intro="play"] [data-intro-part="reveal"] {
-  opacity: 0;
 }

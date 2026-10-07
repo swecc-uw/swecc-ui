@@ -4,7 +4,7 @@ export { Band, Container } from "./Layout";
 export { NavLink } from "./NavLink";
 export { Photo } from "./Photo";
 export { Pill } from "./Pill";
-export { reveal, useReveal } from "./Reveal";
+export { REVEAL_STEP_MS, reveal, useReveal } from "./Reveal";
 export type { RevealScope } from "./Reveal";
 export { Accent, DisplayTitle, Eyebrow, Lede } from "./SectionHeading";
 export { SkipLink } from "./SkipLink";

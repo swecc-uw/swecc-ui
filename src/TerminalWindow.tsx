@@ -1,4 +1,4 @@
-import React, {
+import {
   type ComponentPropsWithoutRef,
   type MouseEvent as ReactMouseEvent,
   type ReactNode,

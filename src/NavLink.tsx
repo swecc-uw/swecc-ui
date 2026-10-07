@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink as RouterNavLink, type NavLinkProps } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import type { StyleXStyles } from "@stylexjs/stylex";

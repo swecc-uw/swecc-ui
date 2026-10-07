@@ -1,4 +1,3 @@
-import React from "react";
 import { renderToString } from "react-dom/server";
 import * as stylex from "@stylexjs/stylex";
 import { describe, expect, it } from "vitest";

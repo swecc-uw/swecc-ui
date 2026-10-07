@@ -1,4 +1,4 @@
-import React, { type ComponentPropsWithoutRef } from "react";
+import { type ComponentPropsWithoutRef } from "react";
 import * as stylex from "@stylexjs/stylex";
 import type { StyleXStyles } from "@stylexjs/stylex";
 import { colors, fonts, fontSizes, lineHeights, media } from "./tokens.stylex";

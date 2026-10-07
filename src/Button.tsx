@@ -1,7 +1,8 @@
-import React, {
+import {
   createContext,
   useContext,
   type ComponentType,
+  type CSSProperties,
   type MouseEventHandler,
   type ReactNode,
   type SVGAttributes,
@@ -81,7 +82,7 @@ export function Button({
 
 type IconProps = SVGAttributes<SVGElement> & {
   className?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 };
 
 type ButtonIconProps = {
