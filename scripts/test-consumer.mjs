@@ -57,5 +57,9 @@ for (const name of classOf("section").split(" ")) {
 }
 assert.match(html, /href="\/next"/, "Button renders a router link for `to`");
 
+run("node dev-check.mjs");
+
 fs.rmSync(dir, { recursive: true, force: true });
-console.log("consumer fixture: type-checks, builds, and renders");
+console.log(
+  "consumer fixture: type-checks, builds, renders, and serves in dev",
+);
