@@ -11,6 +11,7 @@ import { Link } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import type { StyleXStyles } from "@stylexjs/stylex";
 import { buttonMarker } from "./markers.stylex";
+import { safeHref, safeRel } from "./safeHref";
 import { colors, fonts, media, radii } from "./tokens.stylex";
 
 export type ButtonVariant = "primary" | "outline" | "ghost";
@@ -66,9 +67,15 @@ export function Button({
       </Link>
     );
   }
-  if (href) {
+  const validHref = href ? safeHref(href) : undefined;
+  if (validHref) {
     return (
-      <a href={href} {...props} {...sx}>
+      <a
+        href={validHref}
+        {...props}
+        rel={safeRel(props.target, props.rel)}
+        {...sx}
+      >
         {content}
       </a>
     );

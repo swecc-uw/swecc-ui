@@ -6,7 +6,8 @@ export function SkipLink({
   href,
   children,
 }: {
-  href: string;
+  /** Must be a fragment identifier like `#main`. */
+  href: `#${string}`;
   children: string;
 }) {
   return (
