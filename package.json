@@ -1,0 +1,59 @@
+{
+  "name": "@swecc/ui",
+  "version": "0.1.0",
+  "description": "SWECC design library: StyleX tokens and React components for SWECC frontends",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swecc-uw/swecc-ui.git"
+  },
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "dist",
+    "src/global.css"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./tokens.stylex": "./dist/tokens.stylex.js",
+    "./markers.stylex": "./dist/markers.stylex.js",
+    "./global.css": "./src/global.css"
+  },
+  "scripts": {
+    "build": "node -e \"fs.rmSync('dist',{recursive:true,force:true})\" && tsc -p tsconfig.build.json",
+    "prepare": "npm run build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json",
+    "lint": "oxlint",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:consumer": "node scripts/test-consumer.mjs"
+  },
+  "peerDependencies": {
+    "@stylexjs/stylex": "^0.19.1",
+    "react": ">=18",
+    "react-router": ">=7"
+  },
+  "devDependencies": {
+    "@stylexjs/stylex": "^0.19.1",
+    "@stylexjs/unplugin": "^0.19.1",
+    "@types/node": "^24.19.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "oxlint": "^1.86.0",
+    "prettier": "^3.9.9",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router": "^8.4.0",
+    "typescript": "^7.0.2",
+    "unplugin": "^2.3.11",
+    "vite": "^8.3.2",
+    "vitest": "^5.0.3"
+  }
+}
