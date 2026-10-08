@@ -1,0 +1,11 @@
+{
+  "name": "swecc-ui",
+  "compatibility_date": "2026-10-07",
+  "build": {
+    "command": "npm run showcase:build",
+  },
+  "assets": {
+    "directory": "./showcase/dist",
+  },
+  "previews": {},
+}

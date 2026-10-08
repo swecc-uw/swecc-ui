@@ -1,5 +1,6 @@
 /node_modules
 /dist
+/showcase/dist
 *.tgz
 .DS_Store
 .idea
