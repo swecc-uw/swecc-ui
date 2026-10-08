@@ -32,11 +32,13 @@
     "prepare": "npm run build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.node.json && tsc -p showcase/tsconfig.json",
     "lint": "oxlint",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:consumer": "node scripts/test-consumer.mjs"
+    "test:consumer": "node scripts/test-consumer.mjs",
+    "showcase": "vite showcase",
+    "showcase:build": "vite build showcase"
   },
   "peerDependencies": {
     "@stylexjs/stylex": "^0.19.1",
