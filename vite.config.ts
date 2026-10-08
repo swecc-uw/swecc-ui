@@ -12,6 +12,7 @@ export default defineConfig({
   ],
   test: {
     include: ["src/**/*.test.{ts,tsx}"],
+    setupFiles: ["./vitest.setup.ts"],
     // Vitest stubs CSS by default; the design-system guards read global.css.
     css: { include: [/global\.css/] },
   },

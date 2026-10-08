@@ -2,9 +2,11 @@ import * as stylex from "@stylexjs/stylex";
 import { MemoryRouter } from "react-router";
 import {
   Accent,
+  Accordion,
   Band,
   Button,
   Container,
+  Dialog,
   DisplayTitle,
   Eyebrow,
   Heading,
@@ -50,6 +52,20 @@ export function App() {
           <Button variant="outline" size="lg" to="/next" style={styles.cta}>
             Next
           </Button>
+          <Accordion.Root defaultExpandedKeys={["dues"]}>
+            <Accordion.Item id="dues">
+              <Accordion.Trigger>Dues</Accordion.Trigger>
+              <Accordion.Panel style={styles.panel}>None.</Accordion.Panel>
+            </Accordion.Item>
+          </Accordion.Root>
+          <Dialog.Trigger>
+            <Button variant="ghost">Open</Button>
+            <Dialog.Modal>
+              <Dialog.Title>Title</Dialog.Title>
+              <Dialog.Description>Description</Dialog.Description>
+              <Button slot="close">Close</Button>
+            </Dialog.Modal>
+          </Dialog.Trigger>
           <div {...stylex.props(styles.marked, revealMarker)} />
         </Container>
       </Band>
@@ -61,5 +77,11 @@ const styles = stylex.create({
   link: { color: colors.textMuted },
   active: { color: colors.primary },
   cta: { width: { default: "20rem", [media.max768]: "100%" } },
+  panel: {
+    color: {
+      default: colors.textMuted,
+      "[data-focus-visible-within]": colors.text,
+    },
+  },
   marked: { borderRadius: radii.lg, backgroundColor: colors.surfaceRaised },
 });
