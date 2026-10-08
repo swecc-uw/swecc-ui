@@ -38,7 +38,7 @@
     "test:watch": "vitest",
     "test:consumer": "node scripts/test-consumer.mjs",
     "showcase": "vite showcase",
-    "showcase:build": "vite build showcase"
+    "showcase:build": "vite build showcase",
     "playground": "vite --config playground/vite.config.ts"
   },
   "peerDependencies": {
