@@ -12,3 +12,6 @@ export const buttonMarker = stylex.defineMarker();
 
 /** Put on `Photo` figures; the image zooms when its frame is hovered. */
 export const photoMarker = stylex.defineMarker();
+
+/** Put on `Accordion.Trigger`; its chevron turns while the panel is open. */
+export const accordionTriggerMarker = stylex.defineMarker();

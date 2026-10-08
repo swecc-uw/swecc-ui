@@ -3,6 +3,9 @@
 The SWECC design library: design tokens and React components that every SWECC
 frontend shares. All styling goes through [StyleX](https://stylexjs.com).
 Styles compile to atomic CSS at build time, and every style is type-checked.
+Interactive components such as `Dialog` and `Accordion` are built on
+[Base UI](https://base-ui.com), which supplies the behavior: focus management,
+keyboard support, and ARIA attributes. The library adds the SWECC styles.
 
 The library ships uncompiled StyleX. Your app's StyleX plugin compiles the
 library together with your own styles into one stylesheet, so a `style` prop
@@ -17,8 +20,9 @@ npm install --save-dev @stylexjs/unplugin
 
 The package is [`@swecc/ui` on npm](https://www.npmjs.com/package/@swecc/ui).
 
-The library needs `react` 18 or newer and `react-router` 7 or newer. `Button`
-and `NavLink` render router links. To pass a `ref` to `Band` or `Container`,
+The library needs `react` and `react-dom` 18 or newer and `react-router` 7 or
+newer. `Button` and `NavLink` render router links. Base UI installs with the
+library, so you do not add it yourself. To pass a `ref` to `Band` or `Container`,
 use React 19. React 18 does not hand `ref` to a function component.
 
 ## Set up a Vite app
@@ -100,24 +104,79 @@ export function Welcome() {
 Tokens and markers have their own import paths because StyleX resolves them at
 compile time and needs a path that ends in `.stylex`.
 
-| Import path                | What it holds                                                                            |
-| -------------------------- | ---------------------------------------------------------------------------------------- |
-| `@swecc/ui`                | Every component, `useReveal`, `reveal`, `REVEAL_STEP_MS`, and `typeStyles`               |
-| `@swecc/ui/tokens.stylex`  | `colors`, `fonts`, `fontSizes`, `lineHeights`, `layout`, `radii`, `easings`, and `media` |
-| `@swecc/ui/markers.stylex` | `revealMarker`, `buttonMarker`, and `photoMarker`, for use with `stylex.when.ancestor`   |
-| `@swecc/ui/global.css`     | Document defaults and element resets, the only hand-written CSS in the library           |
+| Import path                | What it holds                                                                                                    |
+| -------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `@swecc/ui`                | Every component, `useReveal`, `reveal`, `REVEAL_STEP_MS`, and `typeStyles`                                       |
+| `@swecc/ui/tokens.stylex`  | `colors`, `fonts`, `fontSizes`, `lineHeights`, `layout`, `radii`, `shadows`, `layers`, `easings`, and `media`    |
+| `@swecc/ui/markers.stylex` | `revealMarker`, `buttonMarker`, `photoMarker`, and `accordionTriggerMarker`, for use with `stylex.when.ancestor` |
+| `@swecc/ui/global.css`     | Document defaults and element resets, the only hand-written CSS in the library                                   |
 
 ## Components
 
 | Source file                                                   | Exports                                                                                |
 | ------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | `Button.tsx`                                                  | `Button` (variants `primary`/`outline`/`ghost`, sizes `sm`/`md`/`lg`) and `ButtonIcon` |
+| `Dialog.tsx`                                                  | `Dialog.Root`, `Trigger`, `Popup`, `Title`, `Description`, `Close`                     |
+| `Accordion.tsx`                                               | `Accordion.Root`, `Item`, `Trigger`, `Panel`                                           |
 | `Typography.tsx`                                              | `Heading`, `Text`, and `typeStyles` (hero, display, mono)                              |
 | `SectionHeading.tsx`                                          | `Eyebrow`, `DisplayTitle`, `Accent`, `Lede`                                            |
 | `Layout.tsx`                                                  | `Band` (full-bleed section) and `Container` (max-width wrapper)                        |
 | `NavLink.tsx`                                                 | Router `NavLink` with StyleX `style` and `activeStyle` props                           |
 | `Reveal.ts`                                                   | `useReveal` and the `reveal` styles for scroll-in animation                            |
 | `Photo.tsx`, `Pill.tsx`, `TerminalWindow.tsx`, `SkipLink.tsx` | Smaller building blocks                                                                |
+
+## Base UI components
+
+A component built on Base UI is a namespace of parts. The parts and their
+props match the Base UI component of the same name, so the
+[Base UI docs](https://base-ui.com/react/components/dialog) describe them.
+The library differs in three ways:
+
+- Each part has the SWECC styles.
+- `style` takes StyleX styles in place of `className` and inline styles.
+- Parts that only position or layer content are folded in. `Dialog.Popup`
+  renders the portal and the backdrop. `Accordion.Trigger` renders the
+  heading and the chevron.
+
+```tsx
+import { Button, Dialog } from "@swecc/ui";
+
+<Dialog.Root>
+  <Dialog.Trigger render={<Button variant="outline" />}>Apply</Dialog.Trigger>
+  <Dialog.Popup>
+    <Dialog.Title>Join the mentorship program</Dialog.Title>
+    <Dialog.Description>Applications close on Friday.</Dialog.Description>
+    <Dialog.Close render={<Button size="sm" />}>Done</Dialog.Close>
+  </Dialog.Popup>
+</Dialog.Root>;
+```
+
+The `render` prop makes one part render as another component. `Button`
+forwards its ref and extra props so that a trigger can render as a `Button`.
+
+Base UI marks state with data attributes such as `data-open` and
+`data-disabled`. To style a state, key the value on the attribute:
+
+```tsx
+const styles = stylex.create({
+  panel: {
+    color: { default: colors.textMuted, "[data-open]": colors.text },
+  },
+});
+
+<Accordion.Panel style={styles.panel}>…</Accordion.Panel>;
+```
+
+StyleX compiles these keys, but its `StyleXStyles` type rejects a style that
+uses one. The `style` prop of a Base UI part is typed as `PartStyles`, which
+accepts them.
+
+Popups use `layers.popup` as their `z-index`. Give a sticky navigation bar
+`layers.nav` so that popups open above the bar.
+
+To add a component, wrap each Base UI part with `styled` from
+`src/styled.tsx`, export the namespace from `src/index.ts`, and add the
+component to `playground/main.tsx` and `test/consumer/src/App.tsx`.
 
 ## Compose styles
 
@@ -207,6 +266,9 @@ npm run test:consumer
 Each failure names the file and the rule. Fix the code rather than the
 guard. If a rule needs an exception, change it in the test with a comment
 that explains why.
+
+`npm run playground` serves `playground/main.tsx`, a page that renders the
+Base UI components. Use the page to check a component in a browser.
 
 `npm run test:consumer` packs the library, installs the tarball into the Vite
 app in `test/consumer`, and checks that the app type-checks, builds, and

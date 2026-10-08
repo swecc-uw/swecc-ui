@@ -56,6 +56,21 @@ for (const name of classOf("section").split(" ")) {
   }
 }
 assert.match(html, /href="\/next"/, "Button renders a router link for `to`");
+assert.match(
+  html,
+  /<button[^>]*aria-expanded="true"[^>]*>Dues/,
+  "Accordion renders its open item through Base UI",
+);
+assert.match(
+  html,
+  /<button[^>]*aria-haspopup="dialog"[^>]*>Open/,
+  "Dialog.Trigger renders as a Button",
+);
+assert.match(
+  css,
+  /\[data-starting-style\][^{]*\{\s*height:\s*0/,
+  "the build has the data-attribute rule for a closing Accordion panel",
+);
 
 run("node dev-check.mjs");
 

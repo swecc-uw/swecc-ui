@@ -1,5 +1,7 @@
+export * as Accordion from "./Accordion";
 export { Button, ButtonIcon } from "./Button";
 export type { ButtonProps, ButtonSize, ButtonVariant } from "./Button";
+export * as Dialog from "./Dialog";
 export { Band, Container } from "./Layout";
 export { NavLink } from "./NavLink";
 export { Photo } from "./Photo";
@@ -8,5 +10,6 @@ export { REVEAL_STEP_MS, reveal, useReveal } from "./Reveal";
 export type { RevealScope } from "./Reveal";
 export { Accent, DisplayTitle, Eyebrow, Lede } from "./SectionHeading";
 export { SkipLink } from "./SkipLink";
+export type { PartStyles } from "./styled";
 export { TerminalWindow } from "./TerminalWindow";
 export { Heading, Text, typeStyles } from "./Typography";
