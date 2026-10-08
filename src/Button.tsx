@@ -7,6 +7,11 @@ import {
   type ReactNode,
   type SVGAttributes,
 } from "react";
+import {
+  Button as AriaButton,
+  type ButtonProps as AriaButtonProps,
+  type PressEvent,
+} from "react-aria-components";
 import { Link } from "react-router";
 import * as stylex from "@stylexjs/stylex";
 import type { StyleXStyles } from "@stylexjs/stylex";
@@ -17,10 +22,21 @@ import { colors, fonts, media, radii } from "./tokens.stylex";
 export type ButtonVariant = "primary" | "outline" | "ghost";
 export type ButtonSize = "sm" | "md" | "lg";
 
+type PressProps = {
+  /**
+   * Names the button's job inside a React Aria component. `slot="close"`
+   * closes the `Dialog.Modal` around it.
+   */
+  slot?: string | null;
+  isDisabled?: boolean;
+  onPress?: (event: PressEvent) => void;
+};
+type NoPressProps = { [Key in keyof PressProps]?: never };
+
 type ButtonTarget =
-  | { to: string; href?: never; target?: never; rel?: never }
-  | { href: string; to?: never; target?: string; rel?: string }
-  | { to?: never; href?: never; target?: never; rel?: never };
+  | ({ to: string; href?: never; target?: never; rel?: never } & NoPressProps)
+  | ({ href: string; to?: never; target?: string; rel?: string } & NoPressProps)
+  | ({ to?: never; href?: never; target?: never; rel?: never } & PressProps);
 
 export type ButtonProps = ButtonTarget & {
   children: ReactNode;
@@ -35,7 +51,10 @@ const ButtonContext = createContext<{
   size: ButtonSize;
 }>({ variant: "primary", size: "md" });
 
-/** Renders a router `Link` for `to`, an `<a>` for `href`, else a `<button>`. */
+/**
+ * Renders a router `Link` for `to`, an `<a>` for `href`, else a `<button>`.
+ * The `<button>` is a React Aria button, so it can open a `Dialog.Trigger`.
+ */
 export function Button({
   children,
   variant = "primary",
@@ -43,6 +62,9 @@ export function Button({
   style,
   to,
   href,
+  slot,
+  isDisabled,
+  onPress,
   ...props
 }: ButtonProps) {
   const sx = stylex.props(
@@ -81,9 +103,16 @@ export function Button({
     );
   }
   return (
-    <button type="button" {...props} {...sx}>
+    <AriaButton
+      {...props}
+      onClick={props.onClick as AriaButtonProps["onClick"]}
+      slot={slot}
+      isDisabled={isDisabled}
+      onPress={onPress}
+      {...sx}
+    >
       {content}
-    </button>
+    </AriaButton>
   );
 }
 
