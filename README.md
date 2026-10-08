@@ -212,6 +212,13 @@ that explains why.
 app in `test/consumer`, and checks that the app type-checks, builds, and
 renders. Run it after you change `package.json` or add an export.
 
+`npm run showcase` serves a page that renders every token and component from
+`src`, and reloads as you edit. Each file in `showcase/src/examples` is one
+section of the page. The page prints the file under its preview as the
+snippet to copy. When you add a component, add a file there with the same
+name and a default export. `npm run showcase:build` writes the static page to
+`showcase/dist`.
+
 `npm run build` compiles `src` to `dist` with `tsc`. The build leaves the
 StyleX calls in place for the app's plugin to compile. npm runs the build
 before it packs or publishes the library.
