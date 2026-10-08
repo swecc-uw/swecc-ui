@@ -1,10 +1,12 @@
 import {
   createContext,
+  forwardRef,
   useContext,
   type ComponentType,
   type CSSProperties,
   type MouseEventHandler,
   type ReactNode,
+  type Ref,
   type SVGAttributes,
 } from "react";
 import { Link } from "react-router";
@@ -23,7 +25,7 @@ type ButtonTarget =
   | { to?: never; href?: never; target?: never; rel?: never };
 
 export type ButtonProps = ButtonTarget & {
-  children: ReactNode;
+  children?: ReactNode;
   variant?: ButtonVariant;
   size?: ButtonSize;
   style?: StyleXStyles;
@@ -35,16 +37,15 @@ const ButtonContext = createContext<{
   size: ButtonSize;
 }>({ variant: "primary", size: "md" });
 
-/** Renders a router `Link` for `to`, an `<a>` for `href`, else a `<button>`. */
-export function Button({
-  children,
-  variant = "primary",
-  size = "md",
-  style,
-  to,
-  href,
-  ...props
-}: ButtonProps) {
+/**
+ * Renders a router `Link` for `to`, an `<a>` for `href`, else a `<button>`.
+ * Forwards `ref` and extra props, so a Base UI part can render as a button:
+ * `<Dialog.Trigger render={<Button variant="outline" />}>`.
+ */
+export const Button = forwardRef<HTMLElement, ButtonProps>(function Button(
+  { children, variant = "primary", size = "md", style, to, href, ...props },
+  ref,
+) {
   const sx = stylex.props(
     styles.base,
     sizes[size],
@@ -62,7 +63,7 @@ export function Button({
 
   if (to) {
     return (
-      <Link to={to} {...props} {...sx}>
+      <Link ref={ref as Ref<HTMLAnchorElement>} to={to} {...props} {...sx}>
         {content}
       </Link>
     );
@@ -71,6 +72,7 @@ export function Button({
   if (validHref) {
     return (
       <a
+        ref={ref as Ref<HTMLAnchorElement>}
         href={validHref}
         {...props}
         rel={safeRel(props.target, props.rel)}
@@ -81,11 +83,16 @@ export function Button({
     );
   }
   return (
-    <button type="button" {...props} {...sx}>
+    <button
+      ref={ref as Ref<HTMLButtonElement>}
+      type="button"
+      {...props}
+      {...sx}
+    >
       {content}
     </button>
   );
-}
+});
 
 type IconProps = SVGAttributes<SVGElement> & {
   className?: string;
