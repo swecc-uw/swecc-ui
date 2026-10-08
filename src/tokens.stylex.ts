@@ -100,3 +100,16 @@ export const easings = stylex.defineConsts({
   in: "cubic-bezier(0.7, 0, 0.84, 0)",
   handoff: "cubic-bezier(0.33, 0, 0.1, 1)",
 });
+
+export const shadows = stylex.defineVars({
+  // Lifts dialogs, menus, and tooltips off the page.
+  popup: "0 1px 2px rgb(0 0 0 / 0.4), 0 16px 48px -12px rgb(0 0 0 / 0.6)",
+});
+
+// Stacking order for fixed and portaled layers. Give a sticky nav `nav` so
+// popups open above it and the skip link stays on top.
+export const layers = stylex.defineConsts({
+  nav: 1000,
+  popup: 1100,
+  skipLink: 1200,
+});

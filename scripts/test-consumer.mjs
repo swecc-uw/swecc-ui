@@ -56,6 +56,21 @@ for (const name of classOf("section").split(" ")) {
   }
 }
 assert.match(html, /href="\/next"/, "Button renders a router link for `to`");
+assert.match(
+  html,
+  /<button[^>]*aria-expanded="true"[^>]*>Dues/,
+  "Accordion renders its expanded item through React Aria",
+);
+assert.match(
+  html,
+  /<button[^>]*data-react-aria-pressable[^>]*>Open/,
+  "Button renders a React Aria button",
+);
+assert.match(
+  css,
+  /\[data-entering\][^{]*\{\s*animation-name:/,
+  "the build has the data-attribute rule for an entering Dialog.Modal",
+);
 
 run("node dev-check.mjs");
 
