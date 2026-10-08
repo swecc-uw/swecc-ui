@@ -1,0 +1,7 @@
+{
+  "name": "swecc-ui",
+  "compatibility_date": "2026-10-07",
+  "assets": {
+    "directory": "./showcase/dist",
+  },
+}
